@@ -17,9 +17,9 @@
   "absoluteEncoderInverted": false,
   "inverted": {
     "drive": false,
-    "angle": false
+    "angle": true
   },
-  "absoluteEncoderOffset": 0,
+  "absoluteEncoderOffset": 99.228515625,
   "location": {
     "front": 11.84375,
     "left": -11.84375
