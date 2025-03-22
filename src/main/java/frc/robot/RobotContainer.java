@@ -26,6 +26,7 @@ import frc.robot.subsystems.ArmSpinnySubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.TestSubsystem;
 
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -49,6 +50,7 @@ public class RobotContainer
   private final IntakeSubsystem            intake      = new IntakeSubsystem();
   private final ArmSpinnySubsystem         armSpin    = new ArmSpinnySubsystem();
   private final ClimberSubsystem           climber     = new ClimberSubsystem();
+  private final TestSubsystem              test       = new TestSubsystem();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -215,6 +217,10 @@ public class RobotContainer
       driverJoystick.button(8).onTrue(Commands.run(intake::putIntakeDiagnostics));
       driverJoystick.button(8).onTrue(Commands.run(armSpin::putArmDiagnostics));
       driverJoystick.button(8).onTrue(Commands.run(climber::putClimberDiagnostics));
+
+      driverJoystick.button(10).whileTrue(Commands.run(test::spinMotorPositive)); // clockwise spin
+      driverJoystick.button(11).whileTrue(Commands.run(test::spinMotorNegative)); // counter clockwise spin
+      driverJoystick.button(10).or(driverJoystick.button(11)).whileFalse(Commands.run(test::stopMotor)); // stop arm
     }
   }
 
