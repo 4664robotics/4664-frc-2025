@@ -140,7 +140,7 @@ public class RobotContainer
       drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
     } else
     {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+      drivebase.setDefaultCommand(driveFieldOrientedDirectAngle); // TODO: REPLACE LATER
     }
 
     if (Robot.isSimulation())
@@ -232,7 +232,11 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return drivebase.getAutonomousCommand("Autonomous");
+  }
+
+  public SwerveSubsystem getDriveBase() {
+    return drivebase;
   }
 
   public void setMotorBrake(boolean brake)
