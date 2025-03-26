@@ -126,7 +126,7 @@ public class RobotContainer
     chooser.setDefaultOption("Autonomous Test", new PathPlannerAuto("Autonomous Test"));
     chooser.addOption("Autonomous Spin Test", new PathPlannerAuto("Autonomous Spin Test"));
 
-    SmartDashboard.putData("Autonomous Mode", chooser); // TODO: fix this, doesn't work
+    SmartDashboard.putData("Autonomous Mode", chooser); // TODO: fix this, only works on shuffleboard for some reason
   }
 
   /**
