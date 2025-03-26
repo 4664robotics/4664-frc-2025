@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -53,7 +54,7 @@ public class RobotContainer
   private final ArmSpinnySubsystem         armSpin    = new ArmSpinnySubsystem();
   private final ClimberSubsystem           climber     = new ClimberSubsystem();
 
-  private final SendableChooser<Command>            chooser = new SendableChooser<>();
+  private final SendableChooser<Command>            autoChooser = new SendableChooser<>();
 
 
 
@@ -121,10 +122,15 @@ public class RobotContainer
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
 
-    chooser.setDefaultOption("Autonomous Test", new PathPlannerAuto("Autonomous Test"));
-    chooser.addOption("Autonomous Spin Test", new PathPlannerAuto("Autonomous Spin Test"));
+    autoChooser.setDefaultOption("Autonomous Test", new PathPlannerAuto("Autonomous Test"));
+    autoChooser.addOption("Autonomous Spin Test", new PathPlannerAuto("Autonomous Spin Test"));
+    autoChooser.addOption("SimpleAuto"), new PathPlannerAuto("SimpleAuto"));
+    autoChooser.addOption("ComplexAuto", new PathPlannerAuto("ComplexAuto"));
 
-    SmartDashboard.putData("Autonomous Mode", chooser); // TODO: fix this, only works on shuffleboard for some reason
+    NamedCommands.registerCommand("IntakeOut", Commands.runOnce(intake::intakeOut));
+    NamedCommands.registerCommand("IntakeStop", Commands.runOnce(intake::intakeStop));
+
+    SmartDashboard.putData("Autonomous Mode", autoChooser); // TODO: fix this, only works on shuffleboard for some reason
   }
 
   /**
@@ -238,7 +244,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
-    return chooser.getSelected();
+    return autoChooser.getSelected();
   }
 
   public SwerveSubsystem getDriveBase() {
