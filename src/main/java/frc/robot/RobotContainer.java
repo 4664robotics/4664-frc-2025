@@ -5,6 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -51,6 +54,11 @@ public class RobotContainer
   private final ArmSpinnySubsystem         armSpin    = new ArmSpinnySubsystem();
   private final ClimberSubsystem           climber     = new ClimberSubsystem();
   private final TestSubsystem              test       = new TestSubsystem();
+
+  private final SendableChooser<Command>            chooser = new SendableChooser<>();
+
+
+
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -114,6 +122,11 @@ public class RobotContainer
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+
+    chooser.setDefaultOption("Autonomous Test", new PathPlannerAuto("Autonomous Test"));
+    chooser.addOption("Autonomous Spin Test", new PathPlannerAuto("Autonomous Spin Test"));
+
+    SmartDashboard.putData("Autonomous Mode", chooser); // TODO: fix this, doesn't work
   }
 
   /**
@@ -231,8 +244,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
-    // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("Autonomous");
+    return chooser.getSelected();
   }
 
   public SwerveSubsystem getDriveBase() {
