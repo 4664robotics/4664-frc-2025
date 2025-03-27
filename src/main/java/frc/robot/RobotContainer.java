@@ -54,7 +54,7 @@ public class RobotContainer
   private final ArmSpinnySubsystem         armSpin    = new ArmSpinnySubsystem();
   private final ClimberSubsystem           climber     = new ClimberSubsystem();
 
-  private final SendableChooser<Command>            autoChooser = new SendableChooser<>();
+  private SendableChooser<Command>            autoChooser = new SendableChooser<>();
 
 
 
@@ -124,7 +124,7 @@ public class RobotContainer
 
     autoChooser.setDefaultOption("Autonomous Test", new PathPlannerAuto("Autonomous Test"));
     autoChooser.addOption("Autonomous Spin Test", new PathPlannerAuto("Autonomous Spin Test"));
-    autoChooser.addOption("SimpleAuto"), new PathPlannerAuto("SimpleAuto"));
+    autoChooser.addOption("SimpleAuto", new PathPlannerAuto("SimpleAuto"));
     autoChooser.addOption("ComplexAuto", new PathPlannerAuto("ComplexAuto"));
 
     NamedCommands.registerCommand("IntakeOut", Commands.runOnce(intake::intakeOut));
