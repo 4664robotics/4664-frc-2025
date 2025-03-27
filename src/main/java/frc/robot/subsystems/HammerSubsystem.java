@@ -9,19 +9,19 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 // for diagnostics
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ArmSpinnySubsystem extends SubsystemBase {
-    SparkMax armSpinny = new SparkMax(18, MotorType.kBrushless); // TODO: temp value, fix
+public class HammerSubsystem extends SubsystemBase {
+    SparkMax armSpinny = new SparkMax(18, MotorType.kBrushless);
 
     double armSpeed = 0.0;
 
     final double MAX_VELOCITY = 0.25; // this is used for quickly setting speed values
 
     public void clockwiseSpin() {
-        setArmSpeed(MAX_VELOCITY); // TODO: check if this is correct
+        setArmSpeed(MAX_VELOCITY);
     }
 
     public void counterClockwiseSpin() {
-        setArmSpeed(-MAX_VELOCITY); // TODO: check if this is correct
+        setArmSpeed(-MAX_VELOCITY);
     }
 
     public void stopSpin() {

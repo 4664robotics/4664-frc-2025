@@ -27,11 +27,11 @@ public class IntakeSubsystem extends SubsystemBase {
     final double MAX_VELOCITY = 0.25; // this is used for quickly setting speed values
     
     public void intakeIn() {
-        setIntakeSpeed(-MAX_VELOCITY); // TODO: check if this is correct
+        setIntakeSpeed(-MAX_VELOCITY);
     }
 
     public void intakeOut() {
-        setIntakeSpeed(MAX_VELOCITY); // TODO: check if this is correct
+        setIntakeSpeed(MAX_VELOCITY);
     }
 
     public void intakeStop() {

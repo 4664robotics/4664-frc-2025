@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.ArmSpinnySubsystem;
+import frc.robot.subsystems.HammerSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -50,7 +50,7 @@ public class RobotContainer
 
   private final ElevatorSubsystem          elevator         = new ElevatorSubsystem();
   private final IntakeSubsystem            intake      = new IntakeSubsystem();
-  private final ArmSpinnySubsystem         armSpin    = new ArmSpinnySubsystem();
+  private final HammerSubsystem         armSpin    = new HammerSubsystem();
   private final ClimberSubsystem           climber     = new ClimberSubsystem();
 
   private SendableChooser<Command>            autoChooser = new SendableChooser<>();
@@ -218,9 +218,9 @@ public class RobotContainer
       driverJoystick.button(3).whileTrue(Commands.run(intake::intakeOut)); // intake out
       driverJoystick.button(2).or(driverJoystick.button(3)).whileFalse(Commands.runOnce(intake::intakeStop)); // stop intake
 
-      // arm spin
-      driverJoystick.button(4).whileTrue(Commands.run(armSpin::clockwiseSpin)); // clockwise spin
-      driverJoystick.button(5).whileTrue(Commands.run(armSpin::counterClockwiseSpin)); // counter clockwise spin
+      // hammer
+      driverJoystick.button(4).whileTrue(Commands.run(armSpin::counterClockwiseSpin)); // clockwise spin
+      driverJoystick.button(5).whileTrue(Commands.run(armSpin::clockwiseSpin)); // counter clockwise spin
       driverJoystick.button(4).or(driverJoystick.button(5)).whileFalse(Commands.run(armSpin::stopSpin)); // stop arm
 
       // climber
