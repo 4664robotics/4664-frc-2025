@@ -23,13 +23,15 @@ public class IntakeSubsystem extends SubsystemBase {
     SparkMax intake = new SparkMax(32, MotorType.kBrushless); // TODO: temporary value, replace later
 
     double intakeSpeed = 0.0; // this is here to assist with debugging
+
+    final double MAX_VELOCITY = 0.1; // this is used for quickly setting speed values
     
     public void intakeIn() {
-        setIntakeSpeed(-0.1); // TODO: check if this is correct
+        setIntakeSpeed(-MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void intakeOut() {
-        setIntakeSpeed(0.1); // TODO: check if this is correct
+        setIntakeSpeed(MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void intakeStop() {

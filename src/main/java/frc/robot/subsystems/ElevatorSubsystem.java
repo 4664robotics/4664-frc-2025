@@ -4,7 +4,6 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -22,31 +21,33 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     double elevatorSpeed = 0.0;
 
+    final double MAX_VELOCITY = 1.0; // this is used for quickly setting speed values
+
 
     public void getJoystickInput() {
-        setElevatorSpeed(joystick.getRawAxis(1));
+        setElevatorSpeed(joystick.getRawAxis(1) * -1);
     }
 
-    public void setElevatorSpeed(double speed) {
-        elevatorSpeed = speed;
-
+    public void setElevatorSpeed(double speed) { // elevator speed = input value * max velocity
         if (speed > 0) {
             if (topLimitSwitch.get()) {
                 // We are going up and top limit is tripped so stop
-                elevator.set(0);
+                elevatorSpeed = 0;
             } else {
                 // We are going up but top limit is not tripped so go at commanded speed
-                elevator.set(speed);
+                elevatorSpeed = speed * MAX_VELOCITY;
             }
         } else {
             if (bottomLimitSwitch.get()) {
                 // We are going down and bottom limit is tripped so stop
-                elevator.set(0);
+                elevatorSpeed = 0;
             } else {
                 // We are going down but bottom limit is not tripped so go at commanded speed
-                elevator.set(speed);
+                elevatorSpeed = speed * MAX_VELOCITY;
             }
         }
+
+        elevator.set(elevatorSpeed);
     }
 
     public void stopElevator() {

@@ -14,13 +14,15 @@ public class ClimberSubsystem extends SubsystemBase {
     SparkMax climber = new SparkMax(26, MotorType.kBrushless); // TODO: temporary value, replace later
 
     double climberSpeed = 0.0;
+
+    final double MAX_VELOCITY = 0.15; // this is used for quickly setting speed values
     
     public void climberIn() {
-        setClimberSpeed(-0.15); // TODO: check if this is correct
+        setClimberSpeed(-MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void climberOut() {
-        setClimberSpeed(0.15); // TODO: check if this is correct
+        setClimberSpeed(MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void climberStop() {

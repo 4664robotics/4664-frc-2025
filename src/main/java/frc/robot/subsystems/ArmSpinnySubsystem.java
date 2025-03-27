@@ -14,12 +14,14 @@ public class ArmSpinnySubsystem extends SubsystemBase {
 
     double armSpeed = 0.0;
 
+    final double MAX_VELOCITY = 0.25; // this is used for quickly setting speed values
+
     public void clockwiseSpin() {
-        setArmSpeed(0.25); // TODO: check if this is correct
+        setArmSpeed(MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void counterClockwiseSpin() {
-        setArmSpeed(-0.25); // TODO: check if this is correct
+        setArmSpeed(-MAX_VELOCITY); // TODO: check if this is correct
     }
 
     public void stopSpin() {
