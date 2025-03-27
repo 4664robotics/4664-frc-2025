@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-    SparkMax elevator = new SparkMax(21, MotorType.kBrushless); // TODO: FIX THIS, IS BROKEN!!!!
-    DigitalInput topLimitSwitch = new DigitalInput(0); // TODO: temporary values, replace later
-    DigitalInput bottomLimitSwitch = new DigitalInput(1);
+    SparkMax elevator = new SparkMax(15, MotorType.kBrushless); // TODO: FIX THIS, IS BROKEN!!!!
+    DigitalInput topLimitSwitch = new DigitalInput(1); // TODO: temporary values, replace later
+    DigitalInput bottomLimitSwitch = new DigitalInput(0);
 
     Joystick joystick = new Joystick(1);
 
@@ -25,12 +25,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     public void getJoystickInput() {
-        setElevatorSpeed(joystick.getRawAxis(1) * -1);
+        setElevatorSpeed(joystick.getRawAxis(1));
     }
 
     public void setElevatorSpeed(double speed) { // elevator speed = input value * max velocity
-        if (speed > 0) {
-            if (topLimitSwitch.get()) {
+        if (speed < 0) { // negative goes up
+            if (!topLimitSwitch.get()) {
                 // We are going up and top limit is tripped so stop
                 elevatorSpeed = 0;
             } else {
@@ -38,7 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
                 elevatorSpeed = speed * MAX_VELOCITY;
             }
         } else {
-            if (bottomLimitSwitch.get()) {
+            if (!bottomLimitSwitch.get()) {
                 // We are going down and bottom limit is tripped so stop
                 elevatorSpeed = 0;
             } else {
@@ -47,6 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             }
         }
 
+        //elevatorSpeed = speed * MAX_VELOCITY;
         elevator.set(elevatorSpeed);
     }
 
