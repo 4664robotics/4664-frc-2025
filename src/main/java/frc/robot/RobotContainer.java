@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -224,9 +225,11 @@ public class RobotContainer
       driverJoystick.button(4).or(driverJoystick.button(5)).whileFalse(Commands.run(armSpin::stopSpin)); // stop arm
 
       // climber
-      driverJoystick.button(6).whileTrue(Commands.run(climber::climberIn)); // climber in
-      driverJoystick.button(7).whileTrue(Commands.run(climber::climberOut)); // climber out
-      driverJoystick.button(6).or(driverJoystick.button(7)).whileFalse(Commands.run(climber::climberStop)); // stop climber
+      driverXbox.rightBumper().whileTrue(Commands.run(climber::climberIn)); // climber in
+      driverXbox.rightBumper().whileFalse(Commands.run(climber::climberStop)); // climber stop
+      //driverJoystick.button(6).whileTrue(Commands.run(climber::climberIn)); // climber in
+      //driverJoystick.button(7).whileTrue(Commands.run(climber::climberOut)); // climber out
+      //driverJoystick.button(6).or(driverJoystick.button(7)).whileFalse(Commands.run(climber::climberStop)); // stop climber
 
       // diagnostics
       driverJoystick.button(8).onTrue(Commands.run(elevator::putElevatorDiagnostics));
