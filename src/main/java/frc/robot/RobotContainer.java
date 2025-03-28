@@ -214,9 +214,9 @@ public class RobotContainer
       driverJoystick.button(1).whileFalse(Commands.run(elevator::stopElevator));
 
       // intake
-      driverJoystick.button(2).whileTrue(Commands.run(intake::intakeIn)); // intake in
-      driverJoystick.button(3).whileTrue(Commands.run(intake::intakeOut)); // intake out
-      driverJoystick.button(2).or(driverJoystick.button(3)).whileFalse(Commands.runOnce(intake::intakeStop)); // stop intake
+      driverJoystick.button(7).whileTrue(Commands.run(intake::intakeIn)); // intake in
+      driverJoystick.button(6).whileTrue(Commands.run(intake::intakeOut)); // intake out
+      driverJoystick.button(6).or(driverJoystick.button(7)).whileFalse(Commands.runOnce(intake::intakeStop)); // stop intake
 
       // hammer
       driverJoystick.button(4).whileTrue(Commands.run(armSpin::counterClockwiseSpin)); // clockwise spin
@@ -224,9 +224,11 @@ public class RobotContainer
       driverJoystick.button(4).or(driverJoystick.button(5)).whileFalse(Commands.run(armSpin::stopSpin)); // stop arm
 
       // climber
-      driverJoystick.button(6).whileTrue(Commands.run(climber::climberIn)); // climber in
-      driverJoystick.button(7).whileTrue(Commands.run(climber::climberOut)); // climber out
-      driverJoystick.button(6).or(driverJoystick.button(7)).whileFalse(Commands.run(climber::climberStop)); // stop climber
+      driverXbox.rightBumper().whileTrue(Commands.run(climber::climberIn)); // climber in
+      driverXbox.rightBumper().whileFalse(Commands.run(climber::climberStop)); // climber stop
+      //driverJoystick.button(6).whileTrue(Commands.run(climber::climberIn)); // climber in
+      //driverJoystick.button(7).whileTrue(Commands.run(climber::climberOut)); // climber out
+      //driverJoystick.button(6).or(driverJoystick.button(7)).whileFalse(Commands.run(climber::climberStop)); // stop climber
 
       // diagnostics
       driverJoystick.button(8).onTrue(Commands.run(elevator::putElevatorDiagnostics));
@@ -248,6 +250,10 @@ public class RobotContainer
 
   public SwerveSubsystem getDriveBase() {
     return drivebase;
+  }
+
+  public void zeroGyro() {
+    drivebase.zeroGyro();
   }
 
   public void setMotorBrake(boolean brake)
